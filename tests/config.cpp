@@ -124,5 +124,31 @@ TEST_CASE("EnvSource") {
 
     CHECK(s2.getData().count("ORG_TTLDTOR_CONFIG_TEST_ENV_VAR") == 0);
     CHECK(s2.getData().count("TEST_ENV_VAR") == 1);
+
+    unsetEnvironmentVariable("ORG_TTLDTOR_CONFIG_TEST_ENV_VAR");
   }
+}
+
+TEST_CASE("Full") {
+  Config config{};
+
+  config.addSource(IniSource::fromString(R"("
+user=demo
+password=demo
+    ")"));
+
+  for (auto& [key, value] : config) {
+    std::cout << key << " = " << value << '\n';
+  }
+
+  setEnvironmentVariable("ORG_TTLDTOR_CONFIG_user", "test");
+  config.addSource(EnvSource("ORG_TTLDTOR_CONFIG_"));
+
+  for (auto& [key, value] : config) {
+    std::cout << key << " = " << value << '\n';
+  }
+
+  CHECK(config.getData().size() == 2);
+  CHECK(config.getData().count("user") == 1);
+  CHECK(config.getData().at("user") == "test");
 }
