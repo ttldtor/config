@@ -8,15 +8,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(INIPP_VERSION "1.0.13")
-
-add_subdirectory(third_party/inipp-${INIPP_VERSION})
-
 add_library(config INTERFACE)
 add_library(config::config ALIAS config)
 add_library(org::ttldtor::config::config ALIAS config)
 
-target_link_libraries(${PROJECT_NAME} INTERFACE inipp::inipp)
 target_include_directories(${PROJECT_NAME} INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>

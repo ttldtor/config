@@ -10,12 +10,6 @@
 
 using namespace org::ttldtor::config;
 
-TEST_CASE("Dummy test case") {
-  SUBCASE("Dummy test") {
-    CHECK(true);
-  }
-}
-
 template <typename M1, typename M2>
 bool equals(M1&& m1, M2&& m2) {
   for (auto& [key, value] : m1) {
@@ -62,5 +56,38 @@ TEST_CASE("Config") {
     CHECK(
       equals(std::unordered_map<std::string, std::string>{{"Key1", "Value1"}, {"Key2", "ValueX"}, {"Key3", "Value3"}},
              config.getData()));
+  }
+}
+
+TEST_CASE("IniSource") {
+  SUBCASE("Parse") {
+    std::string iniString = R"("
+# Connection address.
+
+# endpoint.address=my.host.com:77
+endpoint.address=localhost:8080
+
+# Turn on support for event timestamps
+endpoint.eventTime=true
+
+# User name and password
+
+user=demo
+password=demo
+
+# Notifies on incoming data at most on every specified time interval.
+# By default, notifications are performed as soon as data arrives.
+# Use this property to throttle notification rate.
+#
+# aggregationPeriod=0.1s
+
+# Sets the size of thread pool, equal to the number of processors if not specified
+#
+# threadPoolSize=5
+    ")";
+
+    const auto s = IniSource::fromString(iniString);
+
+    CHECK(s.getData().size() == 4);
   }
 }
