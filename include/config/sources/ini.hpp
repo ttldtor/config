@@ -1,3 +1,6 @@
+// Copyright (c) 2025 ttldtor.
+// SPDX-License-Identifier: BSL-1.0
+
 #pragma once
 
 #include <algorithm>
@@ -35,7 +38,7 @@ namespace fs = std::experimental::filesystem;
 
 #if CONFIG_HAS_FILESYSTEM == 0
 #  ifdef _WIN32
-#    include <Windows.h>
+#    include <windows.h>
 #  endif
 #endif
 
@@ -377,6 +380,8 @@ class Ini {
  * The section name is separated from the key name by ':'.
  */
 class IniSource {
+  static constexpr char SEPARATOR = ':';
+
   std::map<std::string, std::string> data_{};
 
   template <typename CharT>
@@ -388,7 +393,7 @@ class IniSource {
         std::string fullKey = sectionName;
 
         if (!fullKey.empty()) {
-          fullKey += std::string(":");
+          fullKey += std::string(1, SEPARATOR);
         }
 
         fullKey += key;
