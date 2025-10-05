@@ -6,6 +6,7 @@ project(config VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CXX_EXTENSIONS OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_library(config INTERFACE)
 add_library(config::config ALIAS config)
