@@ -11,15 +11,15 @@ Library for configuring applications.
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)
-project(test_bits LANGUAGES CXX)
+project(test_config LANGUAGES CXX)
 
 include(FetchContent)
 FetchContent_Declare(
-        bits
+        config
         GIT_REPOSITORY https://github.com/ttldtor/config.git
         GIT_TAG v1.0.0
 )
-FetchContent_MakeAvailable(bits)
+FetchContent_MakeAvailable(config)
 
 add_executable(${PROJECT_NAME} src/main.cpp)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_20)
