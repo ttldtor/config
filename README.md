@@ -17,7 +17,7 @@ include(FetchContent)
 FetchContent_Declare(
         config
         GIT_REPOSITORY https://github.com/ttldtor/config.git
-        GIT_TAG v1.0.2
+        GIT_TAG v1.0.3
 )
 FetchContent_MakeAvailable(config)
 
@@ -44,7 +44,7 @@ user=demo
 password=demo
   ")"));
 
-  for (auto& [key, value] : config) {
+  for (const auto& [key, value] : config) {
     std::cout << key << " = " << value << '\n';
   }
   
@@ -53,7 +53,7 @@ password=demo
 
   config.addSource(EnvSource("MY_PREFIX_"));
 
-  for (auto& [key, value] : config) {
+  for (const auto& [key, value] : config) {
     std::cout << key << " = " << value << '\n';
   }
   
