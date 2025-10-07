@@ -17,7 +17,7 @@ include(FetchContent)
 FetchContent_Declare(
         config
         GIT_REPOSITORY https://github.com/ttldtor/config.git
-        GIT_TAG v1.0.1
+        GIT_TAG v1.0.2
 )
 FetchContent_MakeAvailable(config)
 
